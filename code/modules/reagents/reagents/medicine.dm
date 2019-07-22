@@ -13,7 +13,7 @@
 
 /datum/reagent/inaprovaline/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
 	M.add_chemical_effect(CE_STABLE)
-	M.add_chemical_effect(CE_PAINKILLER, 25)
+	M.add_chemical_effect(CE_PAINKILLER, 25, TRUE)
 	M.add_chemical_effect(CE_PULSE, 1)
 
 /datum/reagent/bicaridine
@@ -70,6 +70,25 @@
 	M.drowsyness = max(0, M.drowsyness - 6 * removed)
 	M.adjust_hallucination(-9 * removed)
 	M.adjustToxLoss(-4 * removed)
+
+/datum/reagent/carthatoline
+	name = "Carthatoline"
+	id = "carthatoline"
+	description = "Carthatoline is a strong evacuant used to treat severe poisoning."
+	reagent_state = LIQUID
+	color = "#225722"
+	scannable = 1
+
+/datum/reagent/carthatoline/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
+	M.adjustToxLoss(-8 * removed)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/internal/liver/L = H.internal_organs_by_name[BP_LIVER]
+		if(istype(L))
+			if(L.robotic >= ORGAN_ROBOT)
+				return
+			if(L.damage > 0)
+				L.damage = max(L.damage - 2 * removed, 0)
 
 /datum/reagent/dexalin
 	name = "Dexalin"
@@ -163,7 +182,7 @@
 	metabolism = 0.02
 
 /datum/reagent/paracetamol/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
-	M.add_chemical_effect(CE_PAINKILLER, 50)
+	M.add_chemical_effect(CE_PAINKILLER, 50, TRUE)
 
 /datum/reagent/paracetamol/overdose(var/mob/living/carbon/M, var/alien)
 	..()
@@ -181,7 +200,7 @@
 	metabolism = 0.02
 
 /datum/reagent/tramadol/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
-	M.add_chemical_effect(CE_PAINKILLER, 80)
+	M.add_chemical_effect(CE_PAINKILLER, 80, TRUE)
 
 /datum/reagent/tramadol/overdose(var/mob/living/carbon/M, var/alien)
 	..()
@@ -198,7 +217,7 @@
 	metabolism = 0.02
 
 /datum/reagent/oxycodone/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
-	M.add_chemical_effect(CE_PAINKILLER, 200)
+	M.add_chemical_effect(CE_PAINKILLER, 200, TRUE)
 
 /datum/reagent/oxycodone/overdose(var/mob/living/carbon/M, var/alien)
 	..()
@@ -226,7 +245,7 @@
 	M.adjust_hallucination(-10)
 	M.add_chemical_effect(CE_MIND, 2)
 	M.adjustToxLoss(5 * removed) // It used to be incredibly deadly due to an oversight. Not anymore!
-	M.add_chemical_effect(CE_PAINKILLER, 40)
+	M.add_chemical_effect(CE_PAINKILLER, 40, TRUE)
 
 /datum/reagent/alkysine
 	name = "Alkysine"
@@ -241,7 +260,7 @@
 
 /datum/reagent/alkysine/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
 	M.adjustBrainLoss(-30 * removed)
-	M.add_chemical_effect(CE_PAINKILLER, 10)
+	M.add_chemical_effect(CE_PAINKILLER, 10, TRUE)
 
 /datum/reagent/imidazoline
 	name = "Imidazoline"

@@ -13,7 +13,7 @@ log transactions
 #define VIEW_TRANSACTION_LOGS 3
 
 /obj/machinery/atm
-	name = "Automatic Teller Machine"
+	name = "automatic teller machine"
 	desc = "For all your monetary needs!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
@@ -358,11 +358,9 @@ log transactions
 					//stamp the paper
 					var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 					stampoverlay.icon_state = "paper_stamp-cent"
-					if(!R.stamped)
-						R.stamped = new
-					R.stamped += /obj/item/weapon/stamp
 					R.overlays += stampoverlay
 					R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
+					R.stamped &= STAMP_DOCUMENT
 
 				playsound(loc, pick('sound/items/polaroid1.ogg','sound/items/polaroid2.ogg'), 50, 1)
 			if ("print_transaction")
@@ -397,11 +395,9 @@ log transactions
 					//stamp the paper
 					var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 					stampoverlay.icon_state = "paper_stamp-cent"
-					if(!R.stamped)
-						R.stamped = new
-					R.stamped += /obj/item/weapon/stamp
 					R.overlays += stampoverlay
 					R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
+					R.stamped &= STAMP_DOCUMENT
 
 				playsound(loc, pick('sound/items/polaroid1.ogg','sound/items/polaroid2.ogg'), 50, 1)
 

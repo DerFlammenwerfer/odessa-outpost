@@ -37,12 +37,22 @@
 
 	var/mob/living/carbon/human/H = holder.wearer
 
-	H << "<font color='blue'><b>You are now invisible to normal detection.</b></font>"
-	H.invisibility = INVISIBILITY_LEVEL_TWO
+	if(FALSE) //TODO: INSERT NINJA FULL SKILL CHECK HERE
+		to_chat(H, "<font color='blue'><b>You are now invisible to normal detection.</b></font>")
+		H.invisibility = INVISIBILITY_LEVEL_TWO
+		H.alpha = 64
+	else if(FALSE) //TODO: INSERT NINJA NOVICE SKILL CHECK HERE
+		to_chat(H, "<font color='blue'<b>You are now cloaked to most observation.</b></font>")
+		H.invisibility = INVISIBILITY_WEAK
+		H.alpha = 8
+	else
+		to_chat(H, "<font color='blue'<b>You are now blending into your surroundings.</b></font>")
+		H.invisibility = INVISIBILITY_WEAK
+		H.alpha = 32
 
 	anim(get_turf(H), H, 'icons/effects/effects.dmi', "electricity",null,20,null)
 
-	H.visible_message("[H.name] vanishes into thin air!",1)
+	H.visible_message("[H.name] melds into the shadows into thin air!",1)
 
 /obj/item/rig_module/stealth_field/deactivate()
 
@@ -53,6 +63,7 @@
 
 	H << SPAN_DANGER("You are now visible.")
 	H.invisibility = 0
+	H.alpha = 255
 
 	anim(get_turf(H), H,'icons/mob/mob.dmi',,"uncloak",,H.dir)
 	anim(get_turf(H), H, 'icons/effects/effects.dmi', "electricity",null,20,null)
@@ -71,6 +82,8 @@
 	redundant = 1
 	usable = 1
 	selectable = 1
+
+	var/realign_time = 0 //Used for skill-less teleports.
 
 	engage_string = "Emergency Leap"
 
@@ -106,10 +119,22 @@
 		return 0
 
 	var/turf/T
+	var/misalignment = round((realign_time - world.time)/90)
 	if(target)
 		T = get_turf(target)
+		if(!FALSE) //TODO: INSERT NINJA FULL SKILL CHECK HERE
+			if(misalignment > 0)
+				var/x_misalignment = rand(misalignment*2 + 1) - misalignment
+				var/y_misalignment = rand(misalignment*2 + 1) - misalignment
+				if(x_misalignment || y_misalignment)
+					T = locate(T.x + x_misalignment, T.y + y_misalignment, T.z)
+					to_chat(H, SPAN_WARNING("Your teleporter malfunctions!"))
+					if(!T)
+						T = get_turf(target)
+		realign_time += 30
 	else
-		T = get_teleport_loc(get_turf(H), H, rand(5, 9))
+		T = get_teleport_loc(get_turf(H), H, rand(5, 9+round(misalignment/2)))
+
 
 	if(!T || T.density)
 		H << SPAN_WARNING("You cannot teleport into solid walls.")
@@ -137,6 +162,7 @@
 			G.affecting.forceMove(locate(T.x+rand(-1,1),T.y+rand(-1,1),T.z))
 			phase_in(G.affecting,get_turf(G.affecting))
 
+	realign_time = max(world.time, realign_time) + 30
 	return 1
 
 /obj/item/rig_module/fabricator/energy_net

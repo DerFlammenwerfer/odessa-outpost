@@ -271,6 +271,8 @@ var/list/rank_prefix = list(\
 	if(get_id_rank())
 		if(findtext(name, " "))
 			name = copytext(name, findtext(name, " "))
+		else
+			name = " [name]"
 		name = get_id_rank() + name
 	return name
 
@@ -1115,7 +1117,7 @@ var/list/rank_prefix = list(\
 		return 0
 
 /mob/living/carbon/human/proc/set_form(var/new_form = FORM_HUMAN, var/default_color)
-	form = all_species_form_list[new_form]
+	form = GLOB.all_species_form_list[new_form]
 	if(default_color)
 		skin_color = form.base_color
 
@@ -1287,23 +1289,16 @@ var/list/rank_prefix = list(\
 		to_chat(user, SPAN_WARNING(fail_msg))
 
 /mob/living/carbon/human/print_flavor_text(var/shrink = 1)
-	var/list/equipment = list(src.head,src.wear_mask,src.glasses,src.w_uniform,src.wear_suit,src.gloves,src.shoes)
+/*	var/list/equipment = list(src.head,src.wear_mask,src.glasses,src.w_uniform,src.wear_suit,src.gloves,src.shoes)
 
 	for(var/obj/item/clothing/C in equipment)
 		if(C.body_parts_covered & FACE)
 			// Do not show flavor if face is hidden
-			return
+			return*/
 
 	if(client)
 		flavor_text = client.prefs.flavor_text
-
-	if (flavor_text && flavor_text != "" && !shrink)
-		var/msg = trim(replacetext(flavor_text, "\n", " "))
-		if(!msg) return ""
-		if(lentext(msg) <= 40)
-			return "<font color='blue'>[msg]</font>"
-		else
-			return "<font color='blue'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a></font>"
+		ooc_text = client.prefs.ooc_text
 	return ..()
 
 /mob/living/carbon/human/getDNA()
@@ -1476,6 +1471,15 @@ var/list/rank_prefix = list(\
 	if(affecting && (affecting.robotic >= ORGAN_ROBOT))
 		return FALSE
 	return (species && species.has_organ[organ_check])
+
+/mob/living/carbon/human/can_feel_pain(var/obj/item/organ/check_organ)
+	if(isSynthetic())
+		return 0
+	/*if(check_organ)
+		if(!istype(check_organ))
+			return 0
+		return check_organ.organ_can_feel_pain() */ //TODO: This also doesn't work on Eris :))
+	return !(species.flags & NO_PAIN)
 
 /mob/living/carbon/human/has_appendage(var/appendage_check)	//returns TRUE if found, 2 or 3 if limb is robotic, FALSE if not found
 

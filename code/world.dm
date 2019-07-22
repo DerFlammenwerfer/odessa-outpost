@@ -56,13 +56,19 @@ var/game_id = null
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define RECOMMENDED_VERSION 512
 /world/New()
 	//logs
-	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
-	href_logfile = file("data/logs/[date_string] hrefs.htm")
-	diary = file("data/logs/[date_string].log")
-	diary << "[log_end]\n[log_end]\nStarting up. (ID: [game_id]) [time2text(world.timeofday, "hh:mm.ss")][log_end]\n---------------------[log_end]"
+	start_time = world.realtime
+	var/date_string = time2text(start_time, "YYYY/MM-Month/DD-Day")
+	var/time_string = time2text(start_time, "YYYY/MM-Month/DD-Day/DDD-DD-hhmmss")
+	href_logfile_filename = "data/logs/[date_string] hrefs.htm"
+	href_logfile = file(href_logfile_filename)
+	diary_filename = "data/logs/[time_string].log"
+	diary = file(diary_filename)
+	diary << "[log_end]\n[log_end]\nStarting up. (ID: [game_id]) [time2text(start_time, "hh:mm.ss")][log_end]\n---------------------[log_end]"
 	changelog_hash = md5('html/changelog.html')					//used for telling if the changelog has changed recently
 
 	if(byond_version < RECOMMENDED_VERSION)
@@ -111,6 +117,8 @@ var/game_id = null
 #undef RECOMMENDED_VERSION
 
 	return
+
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 var/world_topic_spam_protect_ip = "0.0.0.0"
 var/world_topic_spam_protect_time = world.timeofday

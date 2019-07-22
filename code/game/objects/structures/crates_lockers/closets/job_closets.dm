@@ -14,8 +14,8 @@
 	icon_door = "black"
 
 /obj/structure/closet/gmcloset/populate_contents()
-	new /obj/item/clothing/head/that(src)
-	new /obj/item/clothing/head/that(src)
+	new /obj/item/clothing/head/hat/that(src)
+	new /obj/item/clothing/head/hat/that(src)
 	new /obj/item/device/radio/headset/headset_service(src)
 	new /obj/item/device/radio/headset/headset_service(src)
 	new /obj/item/clothing/head/hairflower
@@ -23,8 +23,8 @@
 	new /obj/item/clothing/under/rank/bartender(src)
 	new /obj/item/clothing/suit/wcoat(src)
 	new /obj/item/clothing/suit/wcoat(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
 
 /*
  * Chef
@@ -68,4 +68,5 @@
 	new /obj/item/weapon/storage/bag/trash(src)
 	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/weapon/mop(src)
-	new /obj/item/weapon/storage/pouch/small_generic(src) // Because I feel like poor janitor gets it bad.
+	new /obj/item/weapon/storage/pouch/small_generic/purple(src) // Because I feel like poor janitor gets it bad.
+	new /obj/item/weapon/storage/pouch/janitor_supply(src)

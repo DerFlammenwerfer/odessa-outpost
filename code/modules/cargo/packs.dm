@@ -111,6 +111,15 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	crate_name = "Export scanners crate"
 	group = "Operations"
 
+/datum/supply_pack/flares
+	name = "Flare boxes"
+	contains = list(/obj/item/weapon/storage/box/flares,
+					/obj/item/weapon/storage/box/flares,
+					/obj/item/weapon/storage/box/flares)
+	cost = 1000
+	crate_name = "Flare boxes crate"
+	group = "Operations"
+
 //----------------------------------------------
 //-----------------SECURITY---------------------
 //----------------------------------------------
@@ -707,6 +716,16 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	group = "Engineering"
 	access = access_ce
 
+/datum/supply_pack/hatton_tube
+	contains = list(/obj/item/weapon/hatton_magazine,
+	/obj/item/weapon/hatton_magazine,
+	/obj/item/weapon/hatton_magazine)
+	name = "Hatton gas tubes crate"
+	cost = 5000
+	containertype = /obj/structure/closet/crate/secure
+	group = "Engineering"
+	access = access_ce
+
 /datum/supply_pack/shield_gen
 	contains = list(/obj/item/weapon/circuitboard/shield_generator)
 	name = "Hull shield generator circuitry"
@@ -846,8 +865,8 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 
 /datum/supply_pack/sterile
 	name = "Sterile equipment crate"
-	contains = list(/obj/item/clothing/under/rank/medical/green,
-					/obj/item/clothing/under/rank/medical/green,
+	contains = list(/obj/item/clothing/under/scrubs/green,
+					/obj/item/clothing/under/scrubs/green,
 					/obj/item/clothing/head/surgery/green,
 					/obj/item/clothing/head/surgery/green,
 					/obj/item/weapon/storage/box/masks,
@@ -1182,12 +1201,12 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 //----------------------------------------------
 
 /datum/supply_pack/formal_wear
-	contains = list(/obj/item/clothing/head/bowler,
-					/obj/item/clothing/head/that,
+	contains = list(/obj/item/clothing/head/hat/bowler,
+					/obj/item/clothing/head/hat/that,
 					/obj/item/clothing/under/suit_jacket,
 					/obj/item/clothing/under/suit_jacket/red,
-					/obj/item/clothing/shoes/black,
-					/obj/item/clothing/shoes/black,
+					/obj/item/clothing/shoes/color/black,
+					/obj/item/clothing/shoes/color/black,
 					/obj/item/clothing/shoes/leather,
 					/obj/item/clothing/suit/wcoat)
 	name = "Formalwear closet"
@@ -1280,14 +1299,14 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/clothing/suit/nun,
 					/obj/item/clothing/under/rank/fo_suit,
 					/obj/item/clothing/suit/bio_suit/plaguedoctorsuit,
-					/obj/item/clothing/under/schoolgirl,
+					/obj/item/clothing/under/plaid/schoolgirlblue,
 					/obj/item/clothing/under/owl,
 					/obj/item/clothing/under/waiter,
 					/obj/item/clothing/under/gladiator,
 					/obj/item/clothing/under/soviet,
 					/obj/item/clothing/under/bride_white,
 					/obj/item/clothing/suit/chef,
-					/obj/item/clothing/under/kilt)
+					/obj/item/clothing/under/plaid/kilt)
 	name = "Costumes crate"
 	cost = 1000
 	containertype = /obj/structure/closet/crate/secure

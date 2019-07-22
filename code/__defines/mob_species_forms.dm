@@ -57,6 +57,8 @@
 #define FORM_FELINE				"Feline"
 #define FORM_SHARK				"Shark"
 #define FORM_LIZARD				"Lizard"
+#define FORM_LIZARD_TGSHARP     "Sharp-Snouted Lizard"
+#define FORM_LIZARD_TGSMOOTH    "Smooth-Snouted Lizard"
 #define FORM_VULPINE			"Vulpine"
 #define FORM_FENNEC				"Fennec"
 #define FORM_SERGALINE			"Sergal"
@@ -65,7 +67,16 @@
 #define FORM_SPIDER				"Arachnoid"
 
 #define FORM_BIRD				"Teshari"
+
 #define FORM_VOX				"Vox"
+#define FORM_VOX_AZURE			"Azure Vox"
+#define FORM_VOX_BROWN			"Brown Vox"
+#define FORM_VOX_EMERALD		"Emerald Vox"
+#define FORM_VOX_GRAY			"Gray Vox"
+#define FORM_VOX_LIME			"Lime Vox"
+
+#define FORM_VOX_BONEY			"Boney Vox"
+#define FORM_VOX_TECHY			"Techy Vox"
 
 //
 #define FORM_MONKEY				"Monkey"

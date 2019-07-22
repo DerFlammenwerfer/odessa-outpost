@@ -97,7 +97,13 @@
 
 	if(href_list["ready"])
 		if(SSticker.current_state <= GAME_STATE_PREGAME) // Make sure we don't ready up after the round has started
-			ready = text2num(href_list["ready"])
+
+			if(!BC_IsKeyAllowedToConnect(ckey) && !usr.client.holder)
+				alert("Border Control is enabled, and you haven't been whitelisted!  You're welcome to observe, \
+					   but in order to play, you'll need to be whitelisted!  Please visit our discord to submit an access request!" , "Border Control Active")
+				ready = 0
+			else
+				ready = text2num(href_list["ready"])
 		else
 			ready = 0
 
@@ -157,6 +163,11 @@
 			if(!(S.spawn_flags & CAN_JOIN))
 				src << alert("Your current species, [client.prefs.species], is not available for play on the station.")
 				return 0
+
+		if(!BC_IsKeyAllowedToConnect(ckey) && !usr.client.holder)
+			alert("Border Control is enabled, and you haven't been whitelisted!  You're welcome to observe, \
+				   but in order to play, you'll need to be whitelisted!  Please visit our discord to submit an access request!" , "Border Control Active")
+			return 0
 
 		LateChoices()
 
@@ -327,7 +338,7 @@
 	var/use_form_name
 	var/datum/species_form/chosen_form
 	if(client.prefs.species_form)
-		chosen_form = all_species_form_list[client.prefs.species_form]
+		chosen_form = GLOB.all_species_form_list[client.prefs.species_form]
 		use_form_name = chosen_form.get_station_variant() //Not used at all but whatever.
 
 	if(chosen_species && use_species_name)
@@ -380,7 +391,7 @@
 		new_character.dna.SetSEState(GLASSESBLOCK,1,0)
 		new_character.disabilities |= NEARSIGHTED
 
-	new_character.species_aan = client.prefs.species_aan
+/*	new_character.species_aan = client.prefs.species_aan
 	new_character.species_color_key = client.prefs.species_color
 	new_character.species_name = client.prefs.custom_species
 
@@ -391,7 +402,7 @@
 	new_character.wings = GLOB.wings_styles_list[client.prefs.wings_style]
 	new_character.wings_colors = client.prefs.wings_colors
 
-	new_character.body_markings = client.prefs.body_markings
+	new_character.body_markings = client.prefs.body_markings*/
 
 	// And uncomment this, too.
 	//new_character.dna.UpdateSE()
@@ -417,7 +428,7 @@
 
 /mob/new_player/proc/is_form_whitelisted(datum/species_form/F)
 	if(!F) return 1
-	return F.selectable
+	return F.playable
 
 /mob/new_player/get_species()
 	var/datum/species/chosen_species
@@ -442,7 +453,7 @@
 /mob/new_player/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
 	return
 
-/mob/new_player/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0)
+/mob/new_player/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/part_c, var/mob/speaker = null, var/hard_to_hear = 0)
 	return
 
 mob/new_player/MayRespawn()

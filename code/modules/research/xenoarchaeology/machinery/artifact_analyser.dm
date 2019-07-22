@@ -1,6 +1,6 @@
 
 /obj/machinery/artifact_analyser
-	name = "Anomaly Analyser"
+	name = "anomaly analyser"
 	desc = "Studies the emissions of anomalous materials to discover their uses."
 	icon = 'icons/obj/virology.dmi'
 	icon_state = "isolator"
@@ -78,7 +78,6 @@
 		P.info = "<b>[src] analysis report #[report_num]</b><br>"
 		P.info += "<br>"
 		P.info += "\icon[scanned_object] [results]"
-		P.stamped = list(/obj/item/weapon/stamp)
 		P.overlays = list("paper_stamped")
 
 		if(scanned_object && istype(scanned_object, /obj/machinery/artifact))

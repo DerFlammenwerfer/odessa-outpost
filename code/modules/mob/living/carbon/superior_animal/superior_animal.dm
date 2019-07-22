@@ -136,4 +136,3 @@
 
 /mob/living/carbon/superior_animal/updateicon()
 	. = ..()
-	update_icons()
